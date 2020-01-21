@@ -6,11 +6,14 @@ CC = g++
 # -w suppresses all warnings
 COMPILER_FLAGS = -std=c++11
 #LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = animation
 #This is the target that compiles our executable
-all : $(OBJS)
+compile : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
-run : animation
+
+run : compile
 	./animation
+
+all : compile

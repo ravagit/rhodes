@@ -26,27 +26,50 @@ void initialize()
 					application.height, 
 					SDL_WINDOW_SHOWN 
 					);
-	application.renderer = SDL_CreateRenderer(application.window,-1,SDL_RENDERER_ACCELERATED);
+	init_graphics(application.window);
 	
 }
 
 void close()
 {
-	SDL_DestroyRenderer(application.renderer);
+	close_graphics();
 	SDL_DestroyWindow(application.window);
 	SDL_Quit();
 }
 
 
+unsigned int t = 0;
+unsigned int prev_t = 0;
+float framerate = 20;
+float period = 1/framerate*1000;
 
 void run()
 {
-	//controller_get_input();
+	prev_t = SDL_GetTicks();
 	update_controller(&controller);
-	update_renderer(application.renderer, controller);
-}
+	update_graphics();
+
+	t = SDL_GetTicks();
+	unsigned int dt = t-prev_t;
+
+	if(dt<period)
+	{	
+		//printf("process time :%d\n",dt);
+
+		SDL_Delay(period-dt);
+	}
+	else
+	{
+		printf("Framerate limit\n");
+		printf("--process time :%d\n",dt);
+
+	}
+
+	t = SDL_GetTicks();
+	dt = t-prev_t;
+	//printf("total loop time :%d\n",dt);
 	
-	
+}	
 
 int main( int argc, char* args[] )
 {
