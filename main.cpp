@@ -1,48 +1,45 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include "controller.h"
-#include "graphic.h"
+#include "Sprite.h"
 
-struct Application {
-	bool is_running = true;
-	const char* name = "Graffiti";
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-	int width = 600;
-	int height = 400;
-	struct Controller control;
+class Application 
+{
+	public:
+		bool is_running = true;
+		const char* name = "Graffiti";
+		SDL_Window* window;
+		SDL_Renderer* renderer;
+		int width = 600;
+		int height = 400;
+		struct Controller control;
+	
+		Application(void);
+		~Application(void);
 
 };
-struct Application app;
 
-
-void initialize()
+Application::Application()
 {
 	SDL_Init( SDL_INIT_VIDEO);
-	app.window = SDL_CreateWindow(app.name, 
+	window = SDL_CreateWindow( name, 
 					SDL_WINDOWPOS_UNDEFINED, 
 					SDL_WINDOWPOS_UNDEFINED, 
-					app.width, 
-					app.height, 
+					width, 
+					height, 
 					SDL_WINDOW_SHOWN 
 					);
-	init_graphics(app.window);
-	
+
+	renderer =  SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);		
 }
 
-void close()
+Application::~Application()
 {
-	close_graphics();
-	SDL_DestroyWindow(app.window);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
 
-
-void update_application()
-{
-	if(app.control.quit_app)
-		app.is_running = false;
-}
 
 
 unsigned int t = 0;
@@ -50,15 +47,21 @@ unsigned int prev_t = 0;
 float framerate = 20;
 float period = 1/framerate*1000;
 
-void run()
+
+void run(Application* app,  Sprite* spr)
 {
 	prev_t = SDL_GetTicks();
-	update_application();
-	update_controller(&(app.control));
-	update_graphics(&app);
+	update_controller(&(app->control));
 
 	t = SDL_GetTicks();
 	unsigned int dt = t-prev_t;
+
+	SDL_SetRenderDrawColor(app->renderer,200,200,200,0);
+	SDL_RenderClear(app->renderer);
+
+
+	spr->draw(100,100);
+	SDL_RenderPresent(app->renderer);
 
 	if(dt<period)
 	{	
@@ -81,9 +84,15 @@ void run()
 
 int main( int argc, char* args[] )
 {
-	initialize();
-	while (app.is_running) 
-		run();
-	close();	
+	Application app;
+	Sprite::resource_folder = "./Assets/";
+	Sprite::renderer = app.renderer;
+	
+
+	
+	Sprite sprite1("idle.png");
+	while (!app.control.quit_app) 
+		run(&app, &sprite1);
+	
 	return 0;
 }
