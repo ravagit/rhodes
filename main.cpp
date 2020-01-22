@@ -10,31 +10,38 @@ struct Application {
 	SDL_Renderer* renderer;
 	int width = 600;
 	int height = 400;
+	struct Controller control;
 
 };
-struct Application application;
-struct Controller controller;
+struct Application app;
 
 
 void initialize()
 {
 	SDL_Init( SDL_INIT_VIDEO);
-	application.window = SDL_CreateWindow(application.name, 
+	app.window = SDL_CreateWindow(app.name, 
 					SDL_WINDOWPOS_UNDEFINED, 
 					SDL_WINDOWPOS_UNDEFINED, 
-					application.width, 
-					application.height, 
+					app.width, 
+					app.height, 
 					SDL_WINDOW_SHOWN 
 					);
-	init_graphics(application.window);
+	init_graphics(app.window);
 	
 }
 
 void close()
 {
 	close_graphics();
-	SDL_DestroyWindow(application.window);
+	SDL_DestroyWindow(app.window);
 	SDL_Quit();
+}
+
+
+void update_application()
+{
+	if(app.control.quit_app)
+		app.is_running = false;
 }
 
 
@@ -46,8 +53,9 @@ float period = 1/framerate*1000;
 void run()
 {
 	prev_t = SDL_GetTicks();
-	update_controller(&controller);
-	update_graphics();
+	update_application();
+	update_controller(&(app.control));
+	update_graphics(&app);
 
 	t = SDL_GetTicks();
 	unsigned int dt = t-prev_t;
@@ -74,7 +82,7 @@ void run()
 int main( int argc, char* args[] )
 {
 	initialize();
-	while (!controller.quit_app) 
+	while (app.is_running) 
 		run();
 	close();	
 	return 0;
