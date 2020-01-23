@@ -1,4 +1,4 @@
-OBJS = main.cpp controller.cpp Sprite.cpp
+OBJS = main.cpp Controller.cpp Sprite.cpp Graphic.cpp
 CC = g++
 # -w suppresses all warnings
 COMPILER_FLAGS = -std=c++11

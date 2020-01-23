@@ -3,7 +3,7 @@
 #include "Sprite.h"
 
 
-std::string Sprite::resource_folder;
+std::string Sprite::resource_folder = "./Assets";
 SDL_Renderer* Sprite::renderer;
 
 

@@ -1,8 +1,27 @@
 #ifndef GRAPHIC_H
 #define GRAPHIC_H
 
-void init_graphics(struct Application*);
-void close_graphics(void);
-void update_graphics(struct Application* );
+
+class Scene
+{
+	private:
+		
+	public:
+		Scene(){};
+		~Scene(){};
+		void draw(void)
+		{
+		};
+};
+
+
+
+void graphics_initialize();
+void graphics_close();
+const float graphics_update(Scene*);
+
+
+
+
 
 #endif

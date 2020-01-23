@@ -8,11 +8,11 @@ class Sprite
 	
 		SDL_Rect rect;
 		SDL_Texture* texture;
-		
+		static std::string resource_folder;
+
 		
 		
 	public :
-		static std::string resource_folder;
 		static SDL_Renderer* renderer;
 
 		int width;

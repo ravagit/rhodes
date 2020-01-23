@@ -48,30 +48,4 @@ void update_controller(struct Controller* controller)
 
 }
 
-void controller_modify(struct Controller* c, bool b)
-{
-}
-
-
-void controller_get_input(struct Controller* controller)
-{
-	SDL_PumpEvents();
-
-	const Uint8* key_state = SDL_GetKeyboardState(NULL);
-	const Uint32 mouse_state = SDL_GetMouseState(&(controller->mouse_position.x), &(controller->mouse_position.y));
-
-	if (key_state[SDL_SCANCODE_LEFT])
-   		printf("Left Pressed.\n");
-	if (key_state[SDL_SCANCODE_RIGHT])
-    		printf("Right Pressed.\n");
-	if (key_state[SDL_SCANCODE_UP])
-   		printf("Up Pressed.\n");
-	if (key_state[SDL_SCANCODE_DOWN])
-    		printf("Down Pressed.\n");
-	if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT))
-		printf("Mouse pressed");
-
-
-}
-
 

@@ -13,8 +13,6 @@ struct Controller {
 };
 
 void update_controller(struct Controller*);
-void controller_modify(struct Controller*, bool );
-void controller_get_input(struct Controller*);
 
 
 #endif
