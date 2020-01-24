@@ -2,6 +2,8 @@
 #include "Graphic.h"
 
 #include "Sprite.h"
+#include "Scene.h"
+
 
 struct Graphics
 {
@@ -24,13 +26,17 @@ void graphics_initialize()
 	
 	g.window = window;
 	g.renderer =renderer;
+
+	//init other subsytems (e.g. Sprites.cpp...)
 	Sprite::renderer = renderer;
+	load_all_sprites();
 	
 }
 
 
 void graphics_close()
 {
+	unload_all_sprites();	
 	SDL_DestroyRenderer(g.renderer);
 	SDL_DestroyWindow(g.window);
 	SDL_Quit();

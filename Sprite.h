@@ -2,6 +2,9 @@
 #define SPRITE_H
 #include <string>
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 class Sprite 
 {
 	private :
@@ -9,7 +12,7 @@ class Sprite
 		SDL_Rect rect;
 		SDL_Texture* texture;
 		static std::string resource_folder;
-
+		
 		
 		
 	public :
@@ -22,5 +25,12 @@ class Sprite
 		~Sprite(void);
 		void draw(int ,int );
 };
+
+
+void load_all_sprites();
+void unload_all_sprites();
+
+Sprite* set_sprite(std::string);
+
 
 #endif

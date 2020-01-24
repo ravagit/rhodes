@@ -4,6 +4,7 @@
 #include "Controller.h"
 #include "Sprite.h"
 #include "Graphic.h"
+#include "Scene.h"
 
 
 
