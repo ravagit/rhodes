@@ -11,13 +11,13 @@ int main( int argc, char* args[] )
 {
 	graphics_initialize();
 
-	struct Controller* controller;
-	Scene* main_scene;
+	struct Controller controller;
+	Scene main_scene;
 	
-	while (!controller->quit_app) 
+	while (!controller.quit_app) 
 	{
-		update_controller(controller);
-		const float time_left = graphics_update(main_scene);
+		update_controller(&controller);
+		const float time_left = graphics_update(&main_scene);
 	       	if(time_left > 0)
 			SDL_Delay(time_left);
 		else

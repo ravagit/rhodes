@@ -18,12 +18,13 @@ void graphics_initialize()
 	const int width = 600;
 	const int height = 400;
 
-	printf("here\n");
 	SDL_Init(SDL_INIT_VIDEO);
-	g.window = SDL_CreateWindow(name,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,width,height,SDL_WINDOW_SHOWN);
-	g.renderer =  SDL_CreateRenderer(g.window,-1,SDL_RENDERER_ACCELERATED);
+	SDL_Window* window = SDL_CreateWindow(name,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,width,height,SDL_WINDOW_SHOWN);
+	SDL_Renderer* renderer =  SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 	
-	//Sprite::renderer = g->renderer;
+	g.window = window;
+	g.renderer =renderer;
+	Sprite::renderer = renderer;
 	
 }
 
